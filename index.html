@@ -31,6 +31,10 @@
         .day.holiday {
             color: red;
         }
+        .day.today {
+            background-color: yellow;  /* 今日の日付を黄色にする */
+            font-weight: bold;
+        }
         .header {
             font-weight: bold;
             background-color: #f0f0f0;
@@ -135,6 +139,10 @@
                 calendarElement.appendChild(emptyElement);
             }
 
+            // 今日の日付を取得
+            const today = new Date();
+            const todayFormatted = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
             // 日付を生成
             for (let day = 1; day <= daysInMonth; day++) {
                 const date = new Date(year, month - 1, day);
@@ -155,6 +163,11 @@
                 if (isHoliday) {
                     dayElement.classList.add('holiday');
                     dayElement.title = isHoliday;
+                }
+
+                // 今日の日付に色を付ける
+                if (formattedDate === todayFormatted) {
+                    dayElement.classList.add('today');
                 }
 
                 calendarElement.appendChild(dayElement);
